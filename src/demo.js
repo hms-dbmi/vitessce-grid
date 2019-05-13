@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import '../css/index.css';
-import '../../node_modules/react-grid-layout/css/styles.css';
-import '../../node_modules/react-resizable/css/styles.css';
+import './css/index.css';
+import '../node_modules/react-grid-layout/css/styles.css';
+import '../node_modules/react-resizable/css/styles.css';
 
-import { VitessceGrid } from './components';
+import { VitessceGrid } from './VitessceGrid';
 
 function renderComponent(react, id) {
   ReactDOM.render(react, document.getElementById(id));

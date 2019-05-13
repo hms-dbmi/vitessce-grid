@@ -2,14 +2,8 @@
 // so they can be referenced through unpkg.
 import './css/index.css';
 
-import { Heatmap } from './components/heatmap';
-import { Spatial } from './components/spatial';
-import { Scatterplot } from './components/scatterplot';
-import { renderApp } from './app';
+import { VitessceGrid } from './VitessceGrid';
 
 export default {
-  Heatmap,
-  Spatial,
-  Scatterplot,
-  renderApp,
+  VitessceGrid,
 };
