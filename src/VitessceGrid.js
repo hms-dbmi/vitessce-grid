@@ -49,7 +49,7 @@ export function resolveLayout(layout) {
 }
 
 export function VitessceGrid(props) {
-  const { layout, getComponent, padding, draggableHandle } = props;
+  const { layout, getComponent, padding, margin, draggableHandle } = props;
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -86,8 +86,9 @@ export function VitessceGrid(props) {
         cols={cols}
         layouts={layouts}
         breakpoints={breakpoints}
-        rowHeight={(window.innerHeight - padding) / maxRows - padding}
+        rowHeight={(window.innerHeight - 2 * padding - (maxRows-1) * margin) / maxRows }
         containerPadding={[padding, padding]}
+        margin={[margin,margin]}
         draggableHandle={draggableHandle}
       >
         {layoutChildren}
@@ -97,5 +98,6 @@ export function VitessceGrid(props) {
 }
 
 VitessceGrid.defaultProps = {
-  padding: 10
+  padding: 10,
+  margin: 10,
 }

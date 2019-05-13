@@ -7,7 +7,7 @@ import '../node_modules/react-resizable/css/styles.css';
 
 import { VitessceGrid } from './VitessceGrid';
 
-const handleClass = 'handle';
+const handleClass = 'demo-handle';
 
 function Demo(props) {
   const { text } = props;
@@ -63,6 +63,8 @@ export default function renderDemo(id) {
       layout={responsiveLayout}
       getComponent={getComponent}
       draggableHandle={`.${handleClass}`}
+      padding={50}
+      margin={25}
     />,
     document.getElementById(id)
   );
