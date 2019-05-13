@@ -50,15 +50,13 @@ export function resolveLayout(layout) {
 }
 
 export function VitessceGrid(props) {
-  const {
-    layers, responsiveLayout, staticLayout,
-  } = props;
+  const { layout } = props;
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
 
   const {
     cols, layouts, breakpoints, components,
-  } = resolveLayout(responsiveLayout || staticLayout);
+  } = resolveLayout(layout);
 
   const layoutChildren = Object.entries(components).map(([k, v]) => {
     const Component = getComponent(v.component);
