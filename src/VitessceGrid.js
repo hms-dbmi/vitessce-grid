@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
-import { getComponent } from './componentRegistry';
 import { makeGridLayout, range, getMaxRows } from './layoutUtils';
 
 
@@ -50,7 +49,7 @@ export function resolveLayout(layout) {
 }
 
 export function VitessceGrid(props) {
-  const { layout } = props;
+  const { layout, getComponent, padding, draggableHandle } = props;
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -60,30 +59,29 @@ export function VitessceGrid(props) {
 
   const layoutChildren = Object.entries(components).map(([k, v]) => {
     const Component = getComponent(v.component);
-    const styleLinks = (v.stylesheets || []).map(url => <link rel="stylesheet" href={url} />);
     return (
       <div key={k}>
-        {styleLinks}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Component {... v.props} />
-        </Suspense>
+        <Component {... v.props} />
       </div>
     );
   });
 
   const maxRows = getMaxRows(layouts);
-  const padding = 10;
   return (
     <ResponsiveGridLayout
       className="layout"
       cols={cols}
       layouts={layouts}
       breakpoints={breakpoints}
-      rowHeight={window.innerHeight / maxRows - padding}
+      rowHeight={(window.innerHeight - padding) / maxRows - padding}
       containerPadding={[padding, padding]}
-      draggableHandle=".title"
+      draggableHandle={draggableHandle}
     >
       {layoutChildren}
     </ResponsiveGridLayout>
   );
+}
+
+VitessceGrid.defaultProps = {
+  padding: 10
 }

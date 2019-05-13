@@ -7,12 +7,28 @@ import '../node_modules/react-resizable/css/styles.css';
 
 import { VitessceGrid } from './VitessceGrid';
 
-function renderComponent(react, id) {
-  ReactDOM.render(react, document.getElementById(id));
+const handleClass = 'handle';
+
+function Demo(props) {
+  const { text } = props;
+  return (
+    <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
+      <div className={handleClass}>drag-me</div>
+      <div>{text}</div>
+    </div>
+  );
+}
+
+const registry = {
+  Demo,
+};
+
+function getComponent(name) {
+  return registry[name];
 }
 
 export default function renderDemo(id) {
-  const config = {
+  const responsiveLayout = {
     columns: {
       // First two columns are equal,
       // third column is constant;
@@ -26,24 +42,28 @@ export default function renderDemo(id) {
     },
     layout: [
       { component: 'Demo',
-        props: { title: 'header' },
+        props: { text: 'header' },
         x: 0, y: 0, w: 2 },
       { component: 'Demo',
-        props: { title: 'body, left' },
+        props: { text: 'body, left' },
         x: 0, y: 1, h: 2 },
       { component: 'Demo',
-        props: { title: 'body, right' },
+        props: { text: 'body, right' },
         x: 1, y: 1, h: 2 },
       { component: 'Demo',
-        props: { title: 'sidebar' },
+        props: { text: 'sidebar' },
         x: 2, y: 0, h: 3 },
       { component: 'Demo',
-        props: { title: 'footer' },
-        x: 0, y: 3, w: 4 },
+        props: { text: 'footer' },
+        x: 0, y: 3, w: 3 },
     ]
   };
   ReactDOM.render(
-    <VitessceGrid {...config} />,
+    <VitessceGrid
+      layout={responsiveLayout}
+      getComponent={getComponent}
+      draggableHandle={`.${handleClass}`}
+    />,
     document.getElementById(id)
   );
 }
