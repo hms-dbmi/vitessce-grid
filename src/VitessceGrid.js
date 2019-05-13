@@ -57,6 +57,17 @@ export function VitessceGrid(props) {
     cols, layouts, breakpoints, components,
   } = resolveLayout(layout);
 
+  // Inline CSS is generally avoided, but this saves the end-user a little work,
+  // and prevents class names from getting out of sync.
+  const style = <style>{`
+    ${draggableHandle} {
+      cursor: grab;
+    }
+    ${draggableHandle}:active {
+      cursor: grabbing;
+    }
+  `}</style>
+
   const layoutChildren = Object.entries(components).map(([k, v]) => {
     const Component = getComponent(v.component);
     return (
@@ -68,17 +79,20 @@ export function VitessceGrid(props) {
 
   const maxRows = getMaxRows(layouts);
   return (
-    <ResponsiveGridLayout
-      className="layout"
-      cols={cols}
-      layouts={layouts}
-      breakpoints={breakpoints}
-      rowHeight={(window.innerHeight - padding) / maxRows - padding}
-      containerPadding={[padding, padding]}
-      draggableHandle={draggableHandle}
-    >
-      {layoutChildren}
-    </ResponsiveGridLayout>
+    <React.Fragment>
+      {style}
+      <ResponsiveGridLayout
+        className="layout"
+        cols={cols}
+        layouts={layouts}
+        breakpoints={breakpoints}
+        rowHeight={(window.innerHeight - padding) / maxRows - padding}
+        containerPadding={[padding, padding]}
+        draggableHandle={draggableHandle}
+      >
+        {layoutChildren}
+      </ResponsiveGridLayout>
+    </React.Fragment>
   );
 }
 
