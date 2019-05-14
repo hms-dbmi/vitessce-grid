@@ -1,10 +1,5 @@
-import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
 import expect from 'expect';
-import { DatasetList, resolveLayout } from './components';
-
-configure({ adapter: new Adapter() });
+import { resolveLayout } from './VitessceGrid';
 
 describe('VitessceGrid', () => {
   describe('resolveLayout', () => {

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
@@ -49,7 +49,9 @@ export function resolveLayout(layout) {
 }
 
 export function VitessceGrid(props) {
-  const { layout, getComponent, padding, margin, draggableHandle } = props;
+  const {
+    layout, getComponent, padding, margin, draggableHandle,
+  } = props;
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -59,14 +61,18 @@ export function VitessceGrid(props) {
 
   // Inline CSS is generally avoided, but this saves the end-user a little work,
   // and prevents class names from getting out of sync.
-  const style = <style>{`
-    ${draggableHandle} {
-      cursor: grab;
-    }
-    ${draggableHandle}:active {
-      cursor: grabbing;
-    }
-  `}</style>
+  const style = (
+    <style>
+      {`
+        ${draggableHandle} {
+          cursor: grab;
+        }
+        ${draggableHandle}:active {
+          cursor: grabbing;
+        }
+      `}
+    </style>
+  );
 
   const layoutChildren = Object.entries(components).map(([k, v]) => {
     const Component = getComponent(v.component);
@@ -86,9 +92,9 @@ export function VitessceGrid(props) {
         cols={cols}
         layouts={layouts}
         breakpoints={breakpoints}
-        rowHeight={(window.innerHeight - 2 * padding - (maxRows-1) * margin) / maxRows }
+        rowHeight={(window.innerHeight - 2 * padding - (maxRows - 1) * margin) / maxRows}
         containerPadding={[padding, padding]}
-        margin={[margin,margin]}
+        margin={[margin, margin]}
         draggableHandle={draggableHandle}
       >
         {layoutChildren}
@@ -100,4 +106,4 @@ export function VitessceGrid(props) {
 VitessceGrid.defaultProps = {
   padding: 10,
   margin: 10,
-}
+};

@@ -41,6 +41,8 @@ export default function renderDemo(id) {
       600: [0, 2, 4, 8],
     },
     layout: [
+      /* eslint-disable object-curly-newline */
+      /* eslint-disable object-property-newline */
       { component: 'Demo',
         props: { text: 'header' },
         x: 0, y: 0, w: 2 },
@@ -56,7 +58,8 @@ export default function renderDemo(id) {
       { component: 'Demo',
         props: { text: 'footer' },
         x: 0, y: 3, w: 3 },
-    ]
+      /* eslint-enable */
+    ],
   };
   ReactDOM.render(
     <VitessceGrid
@@ -66,6 +69,6 @@ export default function renderDemo(id) {
       padding={50}
       margin={25}
     />,
-    document.getElementById(id)
+    document.getElementById(id),
   );
 }
