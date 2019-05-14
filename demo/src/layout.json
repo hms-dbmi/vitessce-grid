@@ -6,7 +6,7 @@
     "800": [0, 3, 6, 8],
     "600": [0, 2, 4, 8]
   },
-  "layout": [
+  "components": [
     { "component": "Block",
       "props": { "text": "header" },
       "x": 0, "y": 0, "w": 2 },

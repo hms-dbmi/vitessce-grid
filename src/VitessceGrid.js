@@ -12,7 +12,7 @@ export function resolveLayout(layout) {
   const components = {};
   const positions = {};
 
-  (('layout' in layout) ? layout.layout : layout).forEach(
+  (('components' in layout) ? layout.components : layout).forEach(
     (def) => {
       const id = `r${def.x}_c${def.y}`;
       components[id] = {
@@ -24,7 +24,7 @@ export function resolveLayout(layout) {
     },
   );
 
-  if ('layout' in layout) {
+  if ('components' in layout) {
     Object.entries(layout.columns).forEach(
       ([width, columnXs]) => {
         cols[width] = columnXs[columnXs.length - 1];
