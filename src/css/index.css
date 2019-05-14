@@ -1,0 +1,4 @@
+body {
+  margin: 0;
+  overflow: hidden; /* This is debatable: It may be useful to have scratch space below. */
+}
