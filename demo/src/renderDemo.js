@@ -6,15 +6,23 @@ import '../../node_modules/react-resizable/css/styles.css';
 import './index.css';
 
 import VitessceGrid from '../../src';
-// If you've installed from NPM, use "from 'vitessce-grid'" instead.
+/*
+  After installing from NPM, you'll use "from 'vitessce-grid'" instead.
+*/
 
 import layout from './layout.json';
+/*
+  The layout could be represented in JSON, unless you need to provide function props.
+*/
 
 const handleClass = 'demo-handle';
 
 function Block(props) {
   const { text } = props;
   return (
+    /*
+      You'll may want to use a stylesheet, but for a demo this is more clear.
+    */
     <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
       <div className={handleClass}>drag-me</div>
       <div>{text}</div>
@@ -22,11 +30,16 @@ function Block(props) {
   );
 }
 
-const registry = {
-  Block,
-};
-
 function getComponent(name) {
+  /*
+    One interesting possibility here is to defer loading:
+    Tree shaking might be able to reduce the size of the main download.
+
+    registry = {
+      MyComponent: React.lazy(() => import('./BloatedOptionalComponent.js')),
+    }
+  */
+  const registry = { Block };
   return registry[name];
 }
 
