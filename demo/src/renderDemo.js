@@ -12,7 +12,7 @@ import layout from './layout.json';
 
 const handleClass = 'demo-handle';
 
-function Demo(props) {
+function Block(props) {
   const { text } = props;
   return (
     <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
@@ -23,7 +23,7 @@ function Demo(props) {
 }
 
 const registry = {
-  Demo,
+  Block,
 };
 
 function getComponent(name) {
