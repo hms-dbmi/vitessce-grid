@@ -5,7 +5,7 @@ import '../../node_modules/react-grid-layout/css/styles.css';
 import '../../node_modules/react-resizable/css/styles.css';
 import './index.css';
 
-import { VitessceGrid } from '../../src';
+import VitessceGrid from '../../src';
 // If you've installed from NPM, use "from 'vitessce-grid'" instead.
 
 const handleClass = 'demo-handle';
