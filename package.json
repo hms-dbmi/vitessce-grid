@@ -35,7 +35,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "expect": "^24.5.0",
-    "nwb": "0.23.x"
+    "nwb": "0.23.x",
+    "react-scripts": "^3.0.1"
   },
   "author": "C McCallum",
   "homepage": "https://github.com/hms-dbmi/vitessce-grid/",
