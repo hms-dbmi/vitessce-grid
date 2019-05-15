@@ -1,7 +1,6 @@
 import expect from 'expect';
 import React from 'react';
 import { shallow, configure } from 'enzyme';
-
 import Adapter from 'enzyme-adapter-react-16';
 
 import { resolveLayout, VitessceGrid } from './VitessceGrid';
@@ -91,25 +90,25 @@ describe('VitessceGrid.js', () => {
     });
   });
 
-  // describe('<VitessceGrid />', () => {
-  //   it('works', () => {
-  //     function FakeComponent() {}
-  //     const layoutJson = {
-  //       "columns": {
-  //         "600": [0, 2, 4, 8]
-  //       },
-  //       "components": [
-  //         { "component": "FakeComponent",
-  //           "props": { "text": "header" },
-  //           "x": 0, "y": 0, "w": 2 }
-  //       ]
-  //     }
-  //
-  //     const wrapper = shallow(<VitessceGrid
-  //       layout={layoutJson}
-  //       getComponent={() => FakeComponent}
-  //       draggableHandle=".fakeClass"
-  //     />);
-  //   })
-  // })
+  describe('<VitessceGrid />', () => {
+    it('works', () => {
+      function FakeComponent() {}
+      const layoutJson = {
+        "columns": {
+          "600": [0, 2, 4, 8]
+        },
+        "components": [
+          { "component": "FakeComponent",
+            "props": { "text": "header" },
+            "x": 0, "y": 0, "w": 2 }
+        ]
+      }
+
+      const wrapper = shallow(<VitessceGrid
+        layout={layoutJson}
+        getComponent={() => FakeComponent}
+        draggableHandle=".fakeClass"
+      />);
+    });
+  });
 });
