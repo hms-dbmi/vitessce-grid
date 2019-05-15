@@ -92,6 +92,7 @@ describe('VitessceGrid.js', () => {
 
   describe('<VitessceGrid />', () => {
     function FakeComponent(props) {
+      const { text } = props;
       return <span>{props.text}</span>;
     }
     /* eslint-disable object-curly-newline */
