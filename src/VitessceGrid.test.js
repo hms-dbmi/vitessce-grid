@@ -3,7 +3,7 @@ import { resolveLayout } from './VitessceGrid';
 
 describe('VitessceGrid', () => {
   describe('resolveLayout', () => {
-    const layout = [
+    const componentsSpec = [
       { component: 'NoProps', x: 0, y: 0 },
       {
         component: 'HasProps', props: { foo: 'bar' }, x: 1, y: 1, w: 1, h: 1,
@@ -30,7 +30,7 @@ describe('VitessceGrid', () => {
           1000: [0, 3, 9, 12],
           800: [0, 4, 8, 12],
         },
-        layout,
+        components: componentsSpec,
       });
       expect(cols).toEqual({ 800: 12, 1000: 12 });
       expect(layouts).toEqual(
@@ -64,7 +64,7 @@ describe('VitessceGrid', () => {
       const {
         cols, layouts, breakpoints, components,
       } = resolveLayout(
-        layout,
+        componentsSpec,
       );
       expect(cols).toEqual({ ID: 12 });
       expect(layouts).toEqual(
