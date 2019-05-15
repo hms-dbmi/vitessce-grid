@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { resolveLayout, VitessceGrid } from './VitessceGrid';
 
-configure({ adapter: new Adapter() })
+configure({ adapter: new Adapter() });
 
 describe('VitessceGrid.js', () => {
   describe('resolveLayout', () => {
@@ -93,22 +93,27 @@ describe('VitessceGrid.js', () => {
   describe('<VitessceGrid />', () => {
     it('works', () => {
       function FakeComponent() {}
+      /* eslint-disable object-curly-newline */
+      /* eslint-disable object-property-newline */
       const layoutJson = {
-        "columns": {
-          "600": [0, 2, 4, 8]
+        columns: {
+          600: [0, 2, 4, 8],
         },
-        "components": [
-          { "component": "FakeComponent",
-            "props": { "text": "header" },
-            "x": 0, "y": 0, "w": 2 }
-        ]
-      }
+        components: [
+          { component: 'FakeComponent',
+            props: { text: 'header' },
+            x: 0, y: 0, w: 2 },
+        ],
+      };
+      /* eslint-enable */
 
       const wrapper = shallow(<VitessceGrid
         layout={layoutJson}
         getComponent={() => FakeComponent}
         draggableHandle=".fakeClass"
       />);
+
+      expect(wrapper.find('div').length).toEqual(1);
     });
   });
 });
