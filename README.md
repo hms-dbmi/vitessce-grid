@@ -1,23 +1,22 @@
 # vitessce-grid
-A simplified wrapper for react-grid-layout
+A simplified wrapper for `react-grid-layout`:
+- Easy specification of column positions.
+- Grid heights and widths calculated to fill window.
+- Specify the React component that should fill each pane.
 
-- `layout`:
-  - `columns`: Provides breakpoints and relative column widths
-  - `layout`: An array of objects having these properties:
-    - `component`: Name of component
-    - `props`: React props
-    - `x`, `y`: Required position
-    - `w`, `h`: Optional width and height
+## Example
+
+For more details, see [the demo code](demo/src/renderDemo.js).
+- `layout`: The layout, and the React components which should fill it.
 - `getComponent`: Given a string, returns the actual React component.
-- `draggableHandle`: A CSS path
-- `padding`, `margin`: Optional
-
+- `draggableHandle`: A CSS path.
+- `padding`, `margin`: Optional.
 
 ```javascript
+function getComponent(name) { ... }
 const responsiveLayout = {
   columns: {
-    1200: [0, 5, 10, 12],
-    600: [0, 2, 4, 8],
+    1200: [0, 5, 10, 12], ...
   },
   layout: [
     { component: 'Demo',
@@ -26,9 +25,7 @@ const responsiveLayout = {
     { component: 'Demo',
       props: { text: 'sidebar' },
       x: 2, y: 0, h: 3 },
-    { component: 'Demo',
-      props: { text: 'footer' },
-      x: 0, y: 3, w: 3 },
+    ...
   ],
 };
 ReactDOM.render(
