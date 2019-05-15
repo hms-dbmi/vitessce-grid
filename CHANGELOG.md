@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.?] - 2019-05-15
+## [0.0.2] - 2019-05-15
 ### Added
 - Testing
 - Pass properties through to react-grid-layout.

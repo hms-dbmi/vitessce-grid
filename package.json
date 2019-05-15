@@ -1,7 +1,7 @@
 {
   "name": "vitessce-grid",
-  "version": "0.0.1",
-  "description": "Vitessce app and React component library",
+  "version": "0.0.2",
+  "description": "A simplified wrapper for react-grid-layout inspired by HiGlass viewconfigs",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
