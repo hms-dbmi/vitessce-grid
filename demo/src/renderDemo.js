@@ -51,6 +51,13 @@ export default function renderDemo(id) {
       draggableHandle={`.${handleClass}`}
       padding={50}
       margin={25}
+      reactGridLayoutProps={{
+        /*
+          Use this to pass through to react-grid-layout.
+          See https://github.com/STRML/react-grid-layout#grid-layout-props
+        */
+        onDragStop: () => { alert('onDragStop!'); }
+      }}
     />,
     document.getElementById(id),
   );

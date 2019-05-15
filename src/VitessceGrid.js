@@ -50,7 +50,7 @@ export function resolveLayout(layout) {
 
 export function VitessceGrid(props) {
   const {
-    layout, getComponent, padding, margin, draggableHandle,
+    layout, getComponent, padding, margin, draggableHandle, reactGridLayoutProps,
   } = props;
 
   const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -96,6 +96,7 @@ export function VitessceGrid(props) {
         containerPadding={[padding, padding]}
         margin={[margin, margin]}
         draggableHandle={draggableHandle}
+        {... reactGridLayoutProps}
       >
         {layoutChildren}
       </ResponsiveGridLayout>

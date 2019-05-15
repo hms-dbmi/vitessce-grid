@@ -1,6 +1,7 @@
 # vitessce-grid
-A simplified wrapper for `react-grid-layout`:
-- Easy specification of column positions.
+A simplified wrapper for [`react-grid-layout`](https://github.com/STRML/react-grid-layout#readme),
+inspired by [HiGlass](http://higlass.io) viewconfigs. Features:
+- Easier specification of column positions and widths.
 - Grid heights and widths calculated to fill window.
 - Specify the React component that should fill each pane.
 
@@ -11,6 +12,7 @@ For more details, see [the demo code](demo/src/renderDemo.js).
 - `getComponent`: Given a string, returns the actual React component.
 - `draggableHandle`: A CSS path.
 - `padding`, `margin`: Optional.
+- `reactGridLayoutProps`: Pass other properties through to `react-grid-layout`.
 
 ```javascript
 function getComponent(name) { ... }
@@ -35,6 +37,7 @@ ReactDOM.render(
     draggableHandle={`.${handleClass}`}
     padding={50}
     margin={25}
+    reactGridLayoutProps={{ ... }}
   />,
   document.getElementById('demo'),
 );
