@@ -1,3 +1,3 @@
-import renderDemo from '../../src/demo';
+import renderDemo from './renderDemo';
 
 renderDemo('demo');

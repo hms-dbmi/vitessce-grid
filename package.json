@@ -20,12 +20,10 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "ajv": "^6.10.0",
     "prop-types": "^15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-grid-layout": "^0.16.6",
-    "react-scripts": "^2.1.8"
+    "react-grid-layout": "^0.16.6"
   },
   "devDependencies": {
     "enzyme": "^3.9.0",
@@ -37,9 +35,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "expect": "^24.5.0",
-    "js-yaml": "^3.13.1",
     "nwb": "0.23.x",
-    "wait-on": "^3.2.0"
+    "react-scripts": "^3.0.1"
   },
   "author": "C McCallum",
   "homepage": "https://github.com/hms-dbmi/vitessce-grid/",
