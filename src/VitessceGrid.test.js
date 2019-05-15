@@ -1,7 +1,14 @@
 import expect from 'expect';
-import { resolveLayout } from './VitessceGrid';
+import React from 'react';
+import { shallow, configure } from 'enzyme';
 
-describe('VitessceGrid', () => {
+import Adapter from 'enzyme-adapter-react-16';
+
+import { resolveLayout, VitessceGrid } from './VitessceGrid';
+
+configure({ adapter: new Adapter() })
+
+describe('VitessceGrid.js', () => {
   describe('resolveLayout', () => {
     const componentsSpec = [
       { component: 'NoProps', x: 0, y: 0 },
@@ -83,4 +90,26 @@ describe('VitessceGrid', () => {
       expect(components).toEqual(expectedComponents);
     });
   });
+
+  // describe('<VitessceGrid />', () => {
+  //   it('works', () => {
+  //     function FakeComponent() {}
+  //     const layoutJson = {
+  //       "columns": {
+  //         "600": [0, 2, 4, 8]
+  //       },
+  //       "components": [
+  //         { "component": "FakeComponent",
+  //           "props": { "text": "header" },
+  //           "x": 0, "y": 0, "w": 2 }
+  //       ]
+  //     }
+  //
+  //     const wrapper = shallow(<VitessceGrid
+  //       layout={layoutJson}
+  //       getComponent={() => FakeComponent}
+  //       draggableHandle=".fakeClass"
+  //     />);
+  //   })
+  // })
 });
