@@ -1,14 +1,27 @@
 import React from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import shallowequal from 'shallowequal';
 
 import { getMaxRows, resolveLayout } from './layoutUtils';
 
 
-class VitessceGrid extends React.Component {
+export default class VitessceGrid extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { readyComponentKeys: new Set() };
+    this.state = { readyComponentKeys: new Set() }; // eslint-disable-line react/no-unused-state
+    // This is being used and I'm not sure why there's a linting problem.
+  }
+
+  shouldComponentUpdate(nextProps) {
+    // We are ignoring state right now and only considering props.
+    // State is updated as components trigger onReady...
+    // but those events should not cause a re-render.
+    // React docs warn:
+    // > Do not rely on it to “prevent” a rendering, as this can lead to bugs.
+    // so there is probably a better approach.
+
+    return !shallowequal(this.props, nextProps);
   }
 
   render() {
@@ -83,4 +96,5 @@ class VitessceGrid extends React.Component {
 VitessceGrid.defaultProps = {
   padding: 10,
   margin: 10,
+  onAllReady: () => {},
 };

@@ -58,6 +58,9 @@ export default function renderDemo(id) {
       draggableHandle={`.${handleClass}`}
       padding={50}
       margin={25}
+      onAllReady={() => {
+        console.warn('onAllReady!');
+      }}
       reactGridLayoutProps={{
         /*
           Use this to pass through to react-grid-layout.

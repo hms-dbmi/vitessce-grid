@@ -13,6 +13,7 @@ For more details, see [the demo code](demo/src/renderDemo.js).
 - `draggableHandle`: A CSS path.
 - `padding`, `margin`: Optional.
 - `reactGridLayoutProps`: Pass other properties through to `react-grid-layout`.
+- `onAllReady`: Called after each component calls `onReady`.
 
 ```javascript
 function getComponent(name) { ... }
@@ -37,6 +38,7 @@ ReactDOM.render(
     draggableHandle={`.${handleClass}`}
     padding={50}
     margin={25}
+    onAllReady={onAllReady}
     reactGridLayoutProps={{ ... }}
   />,
   document.getElementById('demo'),
