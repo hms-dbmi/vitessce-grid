@@ -5,7 +5,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import { getMaxRows, resolveLayout } from './layoutUtils';
 
 
-export function VitessceGrid(props) {
+export default function VitessceGrid(props) {
   const {
     layout, getComponent, padding, margin, draggableHandle, reactGridLayoutProps,
   } = props;

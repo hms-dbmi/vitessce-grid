@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow, render, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { resolveLayout, VitessceGrid } from './VitessceGrid';
+import VitessceGrid from './VitessceGrid';
 
 configure({ adapter: new Adapter() });
 
