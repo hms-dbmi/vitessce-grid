@@ -1,9 +1,45 @@
 import React from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import shallowequal from 'shallowequal';
 
 import { getMaxRows, resolveLayout } from './layoutUtils';
+
+function shallowEqual(objA, objB) {
+  // Taken from "shallowequal" on NPM, with modifications.
+  if (objA === objB) {
+    return true;
+  }
+  if (typeof objA !== 'object' || !objA || typeof objB !== 'object' || !objB) {
+    return false;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (let idx = 0; idx < keysA.length; idx++) { // eslint-disable-line no-plusplus
+    const key = keysA[idx];
+    if (!Object.prototype.hasOwnProperty.call(objB, key)) {
+      return false;
+    }
+    if (key === 'onAllReady') {
+      return true;
+      // TODO: We were stuck in an infinite loop because the fuctions were not equal.
+      // This is a hack.
+    }
+
+    const valueA = objA[key];
+    const valueB = objB[key];
+
+    if (valueA !== valueB) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 
 export default class VitessceGrid extends React.Component {
@@ -20,9 +56,7 @@ export default class VitessceGrid extends React.Component {
     // React docs warn:
     // > Do not rely on it to “prevent” a rendering, as this can lead to bugs.
     // so there is probably a better approach.
-
-    console.log(shallowequal(this.props, nextProps), this.props, nextProps);
-    return !shallowequal(this.props, nextProps);
+    return !shallowEqual(this.props, nextProps);
   }
 
   render() {
