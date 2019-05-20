@@ -21,8 +21,6 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
     "react-grid-layout": "^0.16.6",
     "shallowequal": "^1.1.0"
   },
@@ -38,6 +36,10 @@
     "expect": "^24.5.0",
     "nwb": "0.23.x",
     "react-scripts": "^3.0.1"
+  },
+  "peerDependencies": {
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
   },
   "author": "C McCallum",
   "homepage": "https://github.com/hms-dbmi/vitessce-grid/",
