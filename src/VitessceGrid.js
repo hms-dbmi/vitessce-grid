@@ -21,6 +21,7 @@ export default class VitessceGrid extends React.Component {
     // > Do not rely on it to “prevent” a rendering, as this can lead to bugs.
     // so there is probably a better approach.
 
+    console.log(shallowequal(this.props, nextProps), this.props, nextProps);
     return !shallowequal(this.props, nextProps);
   }
 
