@@ -18,10 +18,17 @@ import layout from './layout.json';
 const handleClass = 'demo-handle';
 
 function Block(props) {
-  const { text } = props;
+  const { text, onReady } = props;
+  onReady();
+  /*
+    onReady is useful when we want the VitessceGrid parent to be able to send
+    onAllReady when the children are ready; What "ready" actually means
+    will depend on your code: It could just be didComponentMount, or we might
+    need to wait for outside resources.
+  */
   return (
     /*
-      You'll may want to use a stylesheet, but for a demo this is more clear.
+      You may want to use a stylesheet, but for a demo this is more clear.
     */
     <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
       <div className={handleClass}>drag-me</div>
@@ -51,12 +58,15 @@ export default function renderDemo(id) {
       draggableHandle={`.${handleClass}`}
       padding={50}
       margin={25}
+      onAllReady={() => {
+        console.warn('onAllReady!');
+      }}
       reactGridLayoutProps={{
         /*
           Use this to pass through to react-grid-layout.
           See https://github.com/STRML/react-grid-layout#grid-layout-props
         */
-        onDragStop: () => { alert('onDragStop!'); }
+        onDragStop: () => { console.warn('Wrapped onDragStop works!'); },
       }}
     />,
     document.getElementById(id),
