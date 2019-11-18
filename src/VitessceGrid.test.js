@@ -60,5 +60,16 @@ describe('VitessceGrid.js', () => {
       expect(style.length).toEqual(0);
       // TODO: Why does render() not generate style?
     });
+
+    it('rowHeight works', () => {
+      const wrapper = render(<VitessceGrid
+        layout={layoutJson}
+        getComponent={() => FakeComponent}
+        draggableHandle=".my-handle"
+        rowHeight={123}
+      />);
+
+      expect(wrapper['1'].children[0].attribs.style).toContain('123px');
+    });
   });
 });
