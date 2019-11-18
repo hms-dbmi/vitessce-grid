@@ -61,7 +61,8 @@ export default class VitessceGrid extends React.Component {
 
   render() {
     const {
-      layout, getComponent, padding, margin, draggableHandle, reactGridLayoutProps, onAllReady, rowHeight,
+      layout, getComponent, padding, margin, draggableHandle,
+      reactGridLayoutProps, onAllReady, rowHeight,
     } = this.props;
 
     const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -115,7 +116,12 @@ export default class VitessceGrid extends React.Component {
           cols={cols}
           layouts={layouts}
           breakpoints={breakpoints}
-          rowHeight={rowHeight || (window.innerHeight - 2 * padding - (maxRows - 1) * margin) / maxRows}
+          rowHeight={
+            rowHeight
+            || (
+              (window.innerHeight - 2 * padding - (maxRows - 1) * margin)
+              / maxRows
+            )}
           containerPadding={[padding, padding]}
           margin={[margin, margin]}
           draggableHandle={draggableHandle}
