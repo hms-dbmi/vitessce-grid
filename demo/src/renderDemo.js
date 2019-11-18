@@ -57,6 +57,7 @@ export default function renderDemo(id) {
       getComponent={getComponent}
       draggableHandle={`.${handleClass}`}
       padding={50}
+      rowHeight={100} /* If not provided, will fill window height. */
       margin={25}
       onAllReady={() => {
         console.warn('onAllReady!');
