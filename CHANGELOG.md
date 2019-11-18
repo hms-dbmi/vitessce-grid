@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.5] - 2019-11-18
+### Changed
+- `rowHeight` can be provided; If not present, falls back to using full window height.
+
 ## [0.0.4] - 2019-05-20
 ### Changed
 - Comparison of the onAllReady function prop was causing an infinite loop.
