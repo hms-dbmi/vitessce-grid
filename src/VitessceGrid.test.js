@@ -69,7 +69,7 @@ describe('VitessceGrid.js', () => {
         rowHeight={123}
       />);
 
-      expect(wrapper['1'].children[0].attribs.style).toContain('123px');
+      expect(wrapper['1'].children[0].attribs.style).toContain('height:123px');
     });
   });
 });
