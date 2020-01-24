@@ -18,7 +18,7 @@ import layout from './layout.json';
 const handleClass = 'demo-handle';
 
 function Block(props) {
-  const { text, onReady } = props;
+  const { text, onReady, clearComponent } = props;
   onReady();
   /*
     onReady is useful when we want the VitessceGrid parent to be able to send
@@ -33,6 +33,7 @@ function Block(props) {
     <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
       <div className={handleClass}>drag-me</div>
       <div>{text}</div>
+      <button onClick={clearComponent}>Close</button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
@@ -41,41 +41,43 @@ function shallowEqual(objA, objB) {
   return true;
 }
 
+const VitessceGridComponent = ({
+  k, v, Component, onReady,
+}) => {
+  const [showComponent, setShowComponent] = useState(true);
+  return (
+    <div key={k}>
+      {
+      showComponent
+        ? (
+          <Component
+            {... v.props}
+            clearComponent={() => setShowComponent(false)}
+            onReady={onReady}
+          />
+        )
+        : null
+      }
+    </div>
+  );
+};
 
-export default class VitessceGrid extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { readyComponentKeys: new Set() }; // eslint-disable-line react/no-unused-state
-    // This is being used and I'm not sure why there's a linting problem.
-  }
+const VitessceGrid = React.memo((props) => {
+  const {
+    layout, getComponent, padding, margin, draggableHandle,
+    reactGridLayoutProps, onAllReady, rowHeight,
+  } = props;
+  const [readyComponentKeys, setReadyComponentKeys] = useState(new Set());
+  const ResponsiveGridLayout = WidthProvider(Responsive);
+  const {
+    cols, layouts, breakpoints, components,
+  } = resolveLayout(layout);
 
-  shouldComponentUpdate(nextProps) {
-    // We are ignoring state right now and only considering props.
-    // State is updated as components trigger onReady...
-    // but those events should not cause a re-render.
-    // React docs warn:
-    // > Do not rely on it to “prevent” a rendering, as this can lead to bugs.
-    // so there is probably a better approach.
-    return !shallowEqual(this.props, nextProps);
-  }
-
-  render() {
-    const {
-      layout, getComponent, padding, margin, draggableHandle,
-      reactGridLayoutProps, onAllReady, rowHeight,
-    } = this.props;
-
-    const ResponsiveGridLayout = WidthProvider(Responsive);
-
-    const {
-      cols, layouts, breakpoints, components,
-    } = resolveLayout(layout);
-
-    // Inline CSS is generally avoided, but this saves the end-user a little work,
-    // and prevents class names from getting out of sync.
-    const style = (
-      <style>
-        {`
+  // Inline CSS is generally avoided, but this saves the end-user a little work,
+  // and prevents class names from getting out of sync.
+  const style = (
+    <style>
+      {`
           ${draggableHandle} {
             cursor: grab;
           }
@@ -83,59 +85,56 @@ export default class VitessceGrid extends React.Component {
             cursor: grabbing;
           }
         `}
-      </style>
-    );
+    </style>
+  );
 
-    const layoutChildren = Object.entries(components).map(([k, v]) => {
-      const Component = getComponent(v.component);
-      const onReady = () => {
-        this.setState((state) => {
-          const { readyComponentKeys } = state;
-          const newReadyComponentKeys = new Set(readyComponentKeys);
-          newReadyComponentKeys.add(k);
-          if (newReadyComponentKeys.size === Object.keys(components).length) {
-            // The sets are now equal.
-            onAllReady();
-          }
-          return { readyComponentKeys: newReadyComponentKeys };
-        });
-      };
-      return (
-        <div key={k}>
-          <Component {... v.props} onReady={onReady} />
-        </div>
-      );
+  const layoutChildren = Object.entries(components).map(([k, v]) => {
+    const Component = getComponent(v.component);
+    const onReady = () => { console.log('yo'); };
+    // {
+    //   const newReadyComponentKeys = new Set(readyComponentKeys);
+    //   newReadyComponentKeys.add(k);
+    //   if (newReadyComponentKeys.size === Object.keys(components).length) {
+    //     // The sets are now equal.
+    //     onAllReady();
+    //   }
+    //   setReadyComponentKeys(newReadyComponentKeys);
+    // };
+    return VitessceGridComponent({
+      k, v, Component, onReady,
     });
+  });
 
-    const maxRows = getMaxRows(layouts);
-    return (
-      <React.Fragment>
-        {style}
-        <ResponsiveGridLayout
-          className="layout"
-          cols={cols}
-          layouts={layouts}
-          breakpoints={breakpoints}
-          rowHeight={
-            rowHeight
-            || (
-              (window.innerHeight - 2 * padding - (maxRows - 1) * margin)
-              / maxRows
-            )}
-          containerPadding={[padding, padding]}
-          margin={[margin, margin]}
-          draggableHandle={draggableHandle}
-          {... reactGridLayoutProps}
-        >
-          {layoutChildren}
-        </ResponsiveGridLayout>
-      </React.Fragment>
-    );
-  }
-}
+  const maxRows = getMaxRows(layouts);
+  return (
+    <React.Fragment>
+      {style}
+      <ResponsiveGridLayout
+        className="layout"
+        cols={cols}
+        layouts={layouts}
+        breakpoints={breakpoints}
+        rowHeight={
+          rowHeight
+          || (
+            (window.innerHeight - 2 * padding - (maxRows - 1) * margin)
+            / maxRows
+          )}
+        containerPadding={[padding, padding]}
+        margin={[margin, margin]}
+        draggableHandle={draggableHandle}
+        {... reactGridLayoutProps}
+      >
+        {layoutChildren}
+      </ResponsiveGridLayout>
+    </React.Fragment>
+  );
+}, (prevProps, nextProps) => !shallowEqual(prevProps, nextProps));
 
 VitessceGrid.defaultProps = {
   padding: 10,
   margin: 10,
   onAllReady: () => {},
 };
+
+export default VitessceGrid;
