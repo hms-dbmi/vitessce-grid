@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
@@ -19,8 +19,7 @@ function shallowEqual(objA, objB) {
     return false;
   }
 
-  for (let idx = 0; idx < keysA.length; idx++) { // eslint-disable-line no-plusplus
-    const key = keysA[idx];
+  for (const key of keysA) { // eslint-disable-line no-restricted-syntax
     if (!Object.prototype.hasOwnProperty.call(objB, key)) {
       return false;
     }
@@ -62,7 +61,7 @@ const VitessceGridComponent = ({
   );
 };
 
-const VitessceGrid = React.memo((props) => {
+const VitessceGrid = (props) => {
   const {
     layout, getComponent, padding, margin, draggableHandle,
     reactGridLayoutProps, onAllReady, rowHeight,
@@ -88,18 +87,22 @@ const VitessceGrid = React.memo((props) => {
     </style>
   );
 
+  // useMemo(() => {
+  //   if (readyComponentKeys.size === Object.keys(components).length) {
+  //   // The sets are now equal.
+  //     onAllReady();
+  //   }
+  // }, [components, onAllReady, readyComponentKeys]);
+
   const layoutChildren = Object.entries(components).map(([k, v]) => {
     const Component = getComponent(v.component);
-    const onReady = () => { console.log('yo'); };
-    // {
-    //   const newReadyComponentKeys = new Set(readyComponentKeys);
-    //   newReadyComponentKeys.add(k);
-    //   if (newReadyComponentKeys.size === Object.keys(components).length) {
-    //     // The sets are now equal.
-    //     onAllReady();
-    //   }
-    //   setReadyComponentKeys(newReadyComponentKeys);
-    // };
+    const onReady = () => {
+      // const newReadyComponentKeys = new Set(readyComponentKeys);
+      // newReadyComponentKeys.add(k);
+      // setReadyComponentKeys(newReadyComponentKeys);
+      console.log('hi');
+    };
+
     return VitessceGridComponent({
       k, v, Component, onReady,
     });
@@ -129,7 +132,7 @@ const VitessceGrid = React.memo((props) => {
       </ResponsiveGridLayout>
     </React.Fragment>
   );
-}, (prevProps, nextProps) => !shallowEqual(prevProps, nextProps));
+};
 
 VitessceGrid.defaultProps = {
   padding: 10,
@@ -137,4 +140,4 @@ VitessceGrid.defaultProps = {
   onAllReady: () => {},
 };
 
-export default VitessceGrid;
+export default React.memo(VitessceGrid, !shallowEqual);
