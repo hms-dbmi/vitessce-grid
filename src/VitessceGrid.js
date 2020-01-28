@@ -19,7 +19,7 @@ function shallowEqual(objA, objB) {
     return false;
   }
 
-  for (const key of keysA) { // eslint-disable-line no-restricted-syntax
+  keysA.forEach((key) => { // eslint-disable-line consistent-return
     if (!Object.prototype.hasOwnProperty.call(objB, key)) {
       return false;
     }
@@ -35,22 +35,10 @@ function shallowEqual(objA, objB) {
     if (valueA !== valueB) {
       return false;
     }
-  }
+  });
 
   return true;
 }
-
-const VitessceGridComponent = ({
-  k, v, Component, onReady, removeGridComponent,
-}) => (
-  <div key={k}>
-    <Component
-      {... v.props}
-      clearComponent={removeGridComponent}
-      onReady={onReady}
-    />
-  </div>
-);
 
 const VitessceGrid = (props) => {
   const {
@@ -62,8 +50,7 @@ const VitessceGrid = (props) => {
     cols, layouts, breakpoints, components,
   } = resolveLayout(layout);
 
-  // eslint-disable-next-line no-unused-vars
-  const [readyComponentKeys, setReadyComponentKeys] = useState(new Set());
+  const readyComponentKeys = new Set(); // only created when props change due to React.Memo
   const [gridComponents, setGridComponents] = useState(components);
 
   // Inline CSS is generally avoided, but this saves the end-user a little work,
@@ -77,33 +64,36 @@ const VitessceGrid = (props) => {
           ${draggableHandle}:active {
             cursor: grabbing;
           }
-          `}
+     `}
     </style>
   );
 
   const layoutChildren = Object.entries(gridComponents).map(([k, v]) => {
     const Component = getComponent(v.component);
     const onReady = () => {
-      setReadyComponentKeys((prevReadyComponentKeys) => {
-        prevReadyComponentKeys.add(k);
-        if (prevReadyComponentKeys.size === Object.keys(gridComponents).length) {
-          // The sets are now equal
-          onAllReady();
-        }
-        return prevReadyComponentKeys;
-      });
+      readyComponentKeys.add(k);
+      if (readyComponentKeys === Object.keys(gridComponents).length) {
+        // The sets are now equal
+        onAllReady();
+      }
     };
 
     const removeGridComponent = () => {
-      const { [k]: _, ...newGridComponents } = gridComponents;
+      const newGridComponents = { ...gridComponents };
+      delete newGridComponents[k];
       setGridComponents(newGridComponents);
     };
 
-    return VitessceGridComponent({
-      k, v, Component, onReady, removeGridComponent,
-    });
+    return (
+      <div key={k}>
+        <Component
+          {... v.props}
+          removeGridComponent={removeGridComponent}
+          onReady={onReady}
+        />
+      </div>
+    );
   });
-
   const maxRows = getMaxRows(layouts);
   return (
     <React.Fragment>
@@ -136,4 +126,7 @@ VitessceGrid.defaultProps = {
   onAllReady: () => {},
 };
 
-export default React.memo(VitessceGrid, !shallowEqual);
+export default React.memo(
+  VitessceGrid,
+  (prevProps, nextProps) => !shallowEqual(prevProps, nextProps),
+);
