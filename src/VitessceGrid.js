@@ -41,37 +41,29 @@ function shallowEqual(objA, objB) {
 }
 
 const VitessceGridComponent = ({
-  k, v, Component, onReady,
-}) => {
-  const [showComponent, setShowComponent] = useState(true);
-
-  return (
-    <div key={k}>
-      {
-      showComponent
-        ? (
-          <Component
-            {... v.props}
-            clearComponent={() => setShowComponent(false)}
-            onReady={onReady}
-          />
-        )
-        : null
-      }
-    </div>
-  );
-};
+  k, v, Component, onReady, removeGridComponent,
+}) => (
+  <div key={k}>
+    <Component
+      {... v.props}
+      clearComponent={removeGridComponent}
+      onReady={onReady}
+    />
+  </div>
+);
 
 const VitessceGrid = (props) => {
   const {
     layout, getComponent, padding, margin, draggableHandle,
     reactGridLayoutProps, onAllReady, rowHeight,
   } = props;
-  const [readyComponentKeys, setReadyComponentKeys] = useState(new Set());
   const ResponsiveGridLayout = WidthProvider(Responsive);
   const {
     cols, layouts, breakpoints, components,
   } = resolveLayout(layout);
+
+  const [readyComponentKeys, setReadyComponentKeys] = useState(new Set());
+  const [gridComponents, setGridComponents] = useState(components);
 
   // Inline CSS is generally avoided, but this saves the end-user a little work,
   // and prevents class names from getting out of sync.
@@ -88,12 +80,12 @@ const VitessceGrid = (props) => {
     </style>
   );
 
-  const layoutChildren = Object.entries(components).map(([k, v]) => {
+  const layoutChildren = Object.entries(gridComponents).map(([k, v]) => {
     const Component = getComponent(v.component);
     const onReady = () => {
       setReadyComponentKeys((prevReadyComponentKeys) => {
         prevReadyComponentKeys.add(k);
-        if (prevReadyComponentKeys.size === Object.keys(components).length) {
+        if (prevReadyComponentKeys.size === Object.keys(gridComponents).length) {
           // The sets are now equal
           onAllReady();
         }
@@ -101,8 +93,13 @@ const VitessceGrid = (props) => {
       });
     };
 
+    const removeGridComponent = () => {
+      const { [k]: _, ...newGridComponents } = gridComponents;
+      setGridComponents(newGridComponents);
+    };
+
     return VitessceGridComponent({
-      k, v, Component, onReady,
+      k, v, Component, onReady, removeGridComponent,
     });
   });
 
