@@ -33,7 +33,7 @@ function Block(props) {
     <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
       <div className={handleClass}>drag-me</div>
       <div>{text}</div>
-      <button onClick={clearComponent}>Close</button>
+      <button type="button" onClick={clearComponent}>Close</button>
     </div>
   );
 }

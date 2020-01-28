@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
@@ -44,6 +44,7 @@ const VitessceGridComponent = ({
   k, v, Component, onReady,
 }) => {
   const [showComponent, setShowComponent] = useState(true);
+
   return (
     <div key={k}>
       {
@@ -87,20 +88,17 @@ const VitessceGrid = (props) => {
     </style>
   );
 
-  // useMemo(() => {
-  //   if (readyComponentKeys.size === Object.keys(components).length) {
-  //   // The sets are now equal.
-  //     onAllReady();
-  //   }
-  // }, [components, onAllReady, readyComponentKeys]);
-
   const layoutChildren = Object.entries(components).map(([k, v]) => {
     const Component = getComponent(v.component);
     const onReady = () => {
-      // const newReadyComponentKeys = new Set(readyComponentKeys);
-      // newReadyComponentKeys.add(k);
-      // setReadyComponentKeys(newReadyComponentKeys);
-      console.log('hi');
+      setReadyComponentKeys((prevReadyComponentKeys) => {
+        prevReadyComponentKeys.add(k);
+        if (prevReadyComponentKeys.size === Object.keys(components).length) {
+          // The sets are now equal
+          onAllReady();
+        }
+        return prevReadyComponentKeys;
+      });
     };
 
     return VitessceGridComponent({
