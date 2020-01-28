@@ -62,6 +62,7 @@ const VitessceGrid = (props) => {
     cols, layouts, breakpoints, components,
   } = resolveLayout(layout);
 
+  // eslint-disable-next-line no-unused-vars
   const [readyComponentKeys, setReadyComponentKeys] = useState(new Set());
   const [gridComponents, setGridComponents] = useState(components);
 
@@ -76,7 +77,7 @@ const VitessceGrid = (props) => {
           ${draggableHandle}:active {
             cursor: grabbing;
           }
-        `}
+          `}
     </style>
   );
 
