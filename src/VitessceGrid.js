@@ -32,7 +32,6 @@ export default function VitessceGrid(props) {
   );
 
   const layoutChildren = Object.entries(gridComponents).map(([k, v]) => {
-    console.log('layoutChildren', k, v);
     const Component = getComponent(v.component);
     const onReady = () => {
       readyComponentKeys.add(k);
@@ -84,7 +83,7 @@ export default function VitessceGrid(props) {
       </ResponsiveGridLayout>
     </React.Fragment>
   );
-};
+}
 
 VitessceGrid.defaultProps = {
   padding: 10,
