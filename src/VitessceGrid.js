@@ -4,43 +4,43 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 
 import { getMaxRows, resolveLayout } from './layoutUtils';
 
-function shallowEqual(objA, objB) {
-  // Taken from "shallowequal" on NPM, with modifications.
-  if (objA === objB) {
-    return true;
-  }
-  if (typeof objA !== 'object' || !objA || typeof objB !== 'object' || !objB) {
-    return false;
-  }
+// function shallowEqual(objA, objB) {
+//   // Taken from "shallowequal" on NPM, with modifications.
+//   if (objA === objB) {
+//     return true;
+//   }
+//   if (typeof objA !== 'object' || !objA || typeof objB !== 'object' || !objB) {
+//     return false;
+//   }
+//
+//   const keysA = Object.keys(objA);
+//   const keysB = Object.keys(objB);
+//   if (keysA.length !== keysB.length) {
+//     return false;
+//   }
+//
+//   keysA.forEach((key) => { // eslint-disable-line consistent-return
+//     if (!Object.prototype.hasOwnProperty.call(objB, key)) {
+//       return false;
+//     }
+//     if (key === 'onAllReady') {
+//       return true;
+//       // TODO: We were stuck in an infinite loop because the fuctions were not equal.
+//       // This is a hack.
+//     }
+//
+//     const valueA = objA[key];
+//     const valueB = objB[key];
+//
+//     if (valueA !== valueB) {
+//       return false;
+//     }
+//   });
+//
+//   return true;
+// }
 
-  const keysA = Object.keys(objA);
-  const keysB = Object.keys(objB);
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  keysA.forEach((key) => { // eslint-disable-line consistent-return
-    if (!Object.prototype.hasOwnProperty.call(objB, key)) {
-      return false;
-    }
-    if (key === 'onAllReady') {
-      return true;
-      // TODO: We were stuck in an infinite loop because the fuctions were not equal.
-      // This is a hack.
-    }
-
-    const valueA = objA[key];
-    const valueB = objB[key];
-
-    if (valueA !== valueB) {
-      return false;
-    }
-  });
-
-  return true;
-}
-
-const VitessceGrid = (props) => {
+export default function VitessceGrid(props) {
   const {
     layout, getComponent, padding, margin, draggableHandle,
     reactGridLayoutProps, onAllReady, rowHeight,
@@ -69,6 +69,7 @@ const VitessceGrid = (props) => {
   );
 
   const layoutChildren = Object.entries(gridComponents).map(([k, v]) => {
+    console.log('layoutChildren', k, v);
     const Component = getComponent(v.component);
     const onReady = () => {
       readyComponentKeys.add(k);
@@ -79,6 +80,8 @@ const VitessceGrid = (props) => {
     };
 
     const removeGridComponent = () => {
+      // delete gridComponents[k];
+      // setGridComponents(gridComponents);
       const newGridComponents = { ...gridComponents };
       delete newGridComponents[k];
       setGridComponents(newGridComponents);
@@ -126,7 +129,7 @@ VitessceGrid.defaultProps = {
   onAllReady: () => {},
 };
 
-export default React.memo(
-  VitessceGrid,
-  (prevProps, nextProps) => !shallowEqual(prevProps, nextProps),
-);
+// export default React.memo(
+//   VitessceGrid,
+//   (prevProps, nextProps) => !shallowEqual(prevProps, nextProps),
+// );
