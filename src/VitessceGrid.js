@@ -1,51 +1,14 @@
 import React, { useState } from 'react';
-
 import { Responsive, WidthProvider } from 'react-grid-layout';
-
 import { getMaxRows, resolveLayout } from './layoutUtils';
 
-// function shallowEqual(objA, objB) {
-//   // Taken from "shallowequal" on NPM, with modifications.
-//   if (objA === objB) {
-//     return true;
-//   }
-//   if (typeof objA !== 'object' || !objA || typeof objB !== 'object' || !objB) {
-//     return false;
-//   }
-//
-//   const keysA = Object.keys(objA);
-//   const keysB = Object.keys(objB);
-//   if (keysA.length !== keysB.length) {
-//     return false;
-//   }
-//
-//   keysA.forEach((key) => { // eslint-disable-line consistent-return
-//     if (!Object.prototype.hasOwnProperty.call(objB, key)) {
-//       return false;
-//     }
-//     if (key === 'onAllReady') {
-//       return true;
-//       // TODO: We were stuck in an infinite loop because the fuctions were not equal.
-//       // This is a hack.
-//     }
-//
-//     const valueA = objA[key];
-//     const valueB = objB[key];
-//
-//     if (valueA !== valueB) {
-//       return false;
-//     }
-//   });
-//
-//   return true;
-// }
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export default function VitessceGrid(props) {
   const {
     layout, getComponent, padding, margin, draggableHandle,
     reactGridLayoutProps, onAllReady, rowHeight,
   } = props;
-  const ResponsiveGridLayout = WidthProvider(Responsive);
   const {
     cols, layouts, breakpoints, components,
   } = resolveLayout(layout);
@@ -128,8 +91,3 @@ VitessceGrid.defaultProps = {
   margin: 10,
   onAllReady: () => {},
 };
-
-// export default React.memo(
-//   VitessceGrid,
-//   (prevProps, nextProps) => !shallowEqual(prevProps, nextProps),
-// );
