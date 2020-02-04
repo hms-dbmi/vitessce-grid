@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.6] - 2020-02-04
+### Added
+- Add support for pane closing.
+
 ## [0.0.5] - 2019-11-18
 ### Changed
 - `rowHeight` can be provided; If not present, falls back to using full window height.
