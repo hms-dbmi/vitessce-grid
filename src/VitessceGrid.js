@@ -35,7 +35,7 @@ export default function VitessceGrid(props) {
     const Component = getComponent(v.component);
     const onReady = () => {
       readyComponentKeys.add(k);
-      if (readyComponentKeys === Object.keys(gridComponents).length) {
+      if (readyComponentKeys.size === Object.keys(gridComponents).length) {
         // The sets are now equal
         onAllReady();
       }
