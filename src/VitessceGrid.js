@@ -13,7 +13,8 @@ export default function VitessceGrid(props) {
     cols, layouts, breakpoints, components,
   } = resolveLayout(layout);
 
-  const readyComponentKeys = new Set(); // only created when props change due to React.Memo
+  // eslint-disable-next-line no-unused-vars
+  const [_readyComponentKeys, setReadyComponentKeys] = useState(new Set());
   const [gridComponents, setGridComponents] = useState(components);
 
   // Inline CSS is generally avoided, but this saves the end-user a little work,
@@ -34,16 +35,17 @@ export default function VitessceGrid(props) {
   const layoutChildren = Object.entries(gridComponents).map(([k, v]) => {
     const Component = getComponent(v.component);
     const onReady = () => {
-      readyComponentKeys.add(k);
-      if (readyComponentKeys.size === Object.keys(gridComponents).length) {
-        // The sets are now equal
-        onAllReady();
-      }
+      setReadyComponentKeys((prevReadyComponentKeys) => {
+        prevReadyComponentKeys.add(k);
+        if (prevReadyComponentKeys.size === Object.keys(gridComponents).length) {
+          // The sets are now equal.
+          onAllReady();
+        }
+        return prevReadyComponentKeys;
+      });
     };
 
     const removeGridComponent = () => {
-      // delete gridComponents[k];
-      // setGridComponents(gridComponents);
       const newGridComponents = { ...gridComponents };
       delete newGridComponents[k];
       setGridComponents(newGridComponents);
