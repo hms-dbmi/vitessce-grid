@@ -37,7 +37,7 @@ module.exports = config => {
             // This would be cleaner with 'ChromeHeadless' rather than 'Chrome'
             // but I cannot figure out how to disable network caching using the flags array, for either browser.
             // At least with 'Chrome' (GUI version) you can manually go into the Network tab and disable cache.
-            base: 'ChromeHeadless',
+            base: 'Chrome',
             flags: [
                 // Tried the following flags to disable cache, but neither worked.
                 // '--disk-cache-dir=/dev/null',
@@ -50,3 +50,7 @@ module.exports = config => {
     colors: true
   });
 };
+
+if (process.env.TRAVIS) {
+    config.customLaunchers.ChromeLauncher.base = 'ChromeHeadless';
+}
