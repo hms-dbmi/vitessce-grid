@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
-import '../../node_modules/react-grid-layout/css/styles.css';
-import '../../node_modules/react-resizable/css/styles.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 import './index.css';
 
 import VitessceGrid from '../../src';
@@ -19,7 +19,10 @@ const handleClass = 'demo-handle';
 
 function Block(props) {
   const { text, onReady, removeGridComponent } = props;
-  onReady();
+  const onReadyCallback = useCallback(onReady, []);
+  useEffect(() => {
+    onReadyCallback();
+  }, [onReadyCallback]);
   /*
     onReady is useful when we want the VitessceGrid parent to be able to send
     onAllReady when the children are ready; What "ready" actually means
