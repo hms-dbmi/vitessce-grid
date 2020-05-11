@@ -1,21 +1,19 @@
-import pkg from './package.json';
-import path from 'path';
-import React from 'react';
+const pkg = require('./package.json');
+const { join } = require('path');
+const React = require('react');
 
-import resolve from '@rollup/plugin-node-resolve';
-import babel from '@rollup/plugin-babel';
-import json from '@rollup/plugin-json';
-import commonjs from '@rollup/plugin-commonjs';
-import html from '@rollup/plugin-html';
-import replace from '@rollup/plugin-replace';
-import scss from 'rollup-plugin-scss';
+const resolve = require('@rollup/plugin-node-resolve');
+const { babel } = require('@rollup/plugin-babel');
+const json = require('@rollup/plugin-json');
+const commonjs = require('@rollup/plugin-commonjs');
+const html = require('@rollup/plugin-html');
+const replace = require('@rollup/plugin-replace');
+const scss = require('rollup-plugin-scss');
 
 // Dev server
-import serve from 'rollup-plugin-serve';
-import livereload from 'rollup-plugin-livereload';
-import { htmlFromTemplate } from './rollup.utils';
-
-const { join } = path;
+const serve = require('rollup-plugin-serve');
+const livereload = require('rollup-plugin-livereload');
+const { htmlFromTemplate } = require('./rollup.utils');
 
 // Constants for output files:
 const DEMO_DIR = 'demo';
@@ -25,12 +23,13 @@ const INPUT_JS = 'index.js';
 const OUTPUT_JS = 'demo.js';
 const OUTPUT_CSS = 'demo.css';
 
-export default {
+module.exports = {
     input: join(DEMO_SRC_DIR, INPUT_JS),
     output: {
         file: join(DEMO_DIST_DIR, OUTPUT_JS),
         sourcemap: true,
         format: 'umd',
+        name: pkg.name,
     },
     plugins: [
         // Tell Rollup how to resolve packages in node_modules.

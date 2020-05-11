@@ -1,6 +1,7 @@
-import { makeHtmlAttributes } from '@rollup/plugin-html';
+const html = require('@rollup/plugin-html');
+const { makeHtmlAttributes }  = html;
 
-export function htmlFromTemplate({ attributes, files, publicPath, title }) {
+function htmlFromTemplate({ attributes, files, publicPath, title }) {
   const scripts = (files.js || [])
     .map(({ fileName }) => {
       const attrs = makeHtmlAttributes(attributes.script);
@@ -31,3 +32,7 @@ export function htmlFromTemplate({ attributes, files, publicPath, title }) {
   </body>
 </html>`;
 }
+
+module.exports = {
+    htmlFromTemplate,
+};
