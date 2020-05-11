@@ -3,6 +3,7 @@
 ## 0.0.7 - in progress
 ### Changed
 - Switched to using [Rollup](https://rollupjs.org) for bundling, to obtain more control over externalization of React and ReactDOM.
+- Use `ChromeHeadless` on Travis
 
 ## [0.0.6] - 2020-02-04
 ### Added
