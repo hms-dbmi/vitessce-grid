@@ -37,13 +37,8 @@ module.exports = config => {
             // This would be cleaner with 'ChromeHeadless' rather than 'Chrome'
             // but I cannot figure out how to disable network caching using the flags array, for either browser.
             // At least with 'Chrome' (GUI version) you can manually go into the Network tab and disable cache.
-            base: 'Chrome',
+            base: 'ChromeHeadless',
             flags: [
-                // HiGlass uses this option to enable running Karma on Travis.
-                // Reference: https://github.com/higlass/higlass/blob/bdeb214b6159b46c583caade4cffa2417ca9c15e/karma.conf.js#L113
-                // Not entirely sure why, or whether it is required.
-                // Reference: https://github.com/theintern/intern/issues/878
-                '--no-sandbox',
                 // Tried the following flags to disable cache, but neither worked.
                 // '--disk-cache-dir=/dev/null',
                 // '--disk-cache-size=1',
