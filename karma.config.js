@@ -49,8 +49,8 @@ module.exports = config => {
     port: 9876,
     colors: true
   });
-};
 
-if (process.env.TRAVIS) {
+  if (process.env.TRAVIS) {
     config.customLaunchers.ChromeLauncher.base = 'ChromeHeadless';
-}
+  }
+};
