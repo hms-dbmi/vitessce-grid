@@ -10,7 +10,7 @@
     "umd"
   ],
   "scripts": {
-    "clean": "rm -r es lib umd demo",
+    "clean": "rm -r es lib umd demo/dist",
     "prepublishOnly": "npm run build",
     "start": "rollup -c rollup.config.demo.js --environment NODE_ENV:development --watch",
     "build:development": "rollup -c rollup.config.lib.js --environment NODE_ENV:development",

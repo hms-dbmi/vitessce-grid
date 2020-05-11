@@ -9,7 +9,6 @@ const commonjs = require('@rollup/plugin-commonjs');
 const html = require('@rollup/plugin-html');
 const replace = require('@rollup/plugin-replace');
 const scss = require('rollup-plugin-scss');
-
 // Dev server
 const serve = require('rollup-plugin-serve');
 const livereload = require('rollup-plugin-livereload');
@@ -26,10 +25,13 @@ const OUTPUT_CSS = 'demo.css';
 module.exports = {
     input: join(DEMO_SRC_DIR, INPUT_JS),
     output: {
-        file: join(DEMO_DIST_DIR, OUTPUT_JS),
-        sourcemap: true,
         format: 'umd',
+        // UMD builds require a name.
         name: pkg.name,
+        // We want sourcemap files to be created for debugging purposes.
+        // https://rollupjs.org/guide/en/#outputsourcemap
+        sourcemap: true,
+        file: join(DEMO_DIST_DIR, OUTPUT_JS),
     },
     plugins: [
         // Tell Rollup how to resolve packages in node_modules.

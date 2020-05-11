@@ -16,40 +16,54 @@ const LIB_DIR = 'lib';
 const ES_DIR = 'es';
 const UMD_DIR = 'umd';
 const INPUT_JS = 'index.js';
-
-const ES_OUTPUT_JS = join(ES_DIR, 'index.js');
-const ES_OUTPUT_MIN_JS = join(ES_DIR, 'index.min.js');
-const LIB_OUTPUT_JS = join(LIB_DIR, 'index.js');
-const LIB_OUTPUT_MIN_JS = join(LIB_DIR, 'index.min.js');
 const UMD_OUTPUT_JS = join(UMD_DIR, 'vitessce-grid.js');
 const UMD_OUTPUT_MIN_JS = join(UMD_DIR, 'vitessce-grid.min.js');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 const outputBase = {
+    // We want sourcemap files to be created for debugging purposes.
+    // https://rollupjs.org/guide/en/#outputsourcemap
     sourcemap: true,
+    // Since we want React and ReactDOM to be externals,
+    // we need to tell the bundle how these libraries can be found as global variables.
+    // Reference: https://rollupjs.org/guide/en/#outputglobals
     globals: {
         'react': 'React',
         'react-dom': 'ReactDOM',
     }
 };
 
+const outputModuleBase = {
+    // Create separate chunks for all modules using original file names as modules.
+    // Reference: https://rollupjs.org/guide/en/#preservemodules
+    preserveModules: true,
+    entryFileNames: (isProduction ? "[name].min.js" : "[name].js"),
+    chunkFileNames: (isProduction ? "[name]-[hash].min.js" : "[name]-[hash].js"),
+};
+
 export default {
     input: join(SRC_DIR, INPUT_JS),
     output: [
         {
+            // Reference: https://rollupjs.org/guide/en/#outputformat
             format: 'es',
-            file: (isProduction ? ES_OUTPUT_MIN_JS : ES_OUTPUT_JS),
-            ...outputBase
+            dir: ES_DIR,
+            ...outputBase,
+            ...outputModuleBase,
         },
         {
+            // Reference: https://rollupjs.org/guide/en/#outputformat
             format: 'cjs',
-            file: (isProduction ? LIB_OUTPUT_MIN_JS : LIB_OUTPUT_JS),
-            ...outputBase
+            dir: LIB_DIR,
+            ...outputBase,
+            ...outputModuleBase,
         },
         {
-            name: pkg.name,
+            // Reference: https://rollupjs.org/guide/en/#outputformat
             format: 'umd',
+            // UMD builds require a name.
+            name: pkg.name,
             file: (isProduction ? UMD_OUTPUT_MIN_JS : UMD_OUTPUT_JS),
             ...outputBase
         }
