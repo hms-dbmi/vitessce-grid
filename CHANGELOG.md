@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.7 - in progress
+### Changed
+- Switched to using [Rollup](https://rollupjs.org) for bundling, to obtain more control over externalization of React and ReactDOM.
+
 ## [0.0.6] - 2020-02-04
 ### Added
 - Add support for pane closing.
