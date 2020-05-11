@@ -2,7 +2,7 @@ process.env.NODE_ENV = "development";
 process.env.BABEL_ENV = "development";
 
 const rollupConfig = require('./rollup.config.demo');
-// Remove dev server plugins from the config.
+// Remove development server plugins from the config.
 const pluginsToRemove = ['livereload', 'serve'];
 rollupConfig.plugins = rollupConfig.plugins.filter(({ name }) => !pluginsToRemove.includes(name));
 

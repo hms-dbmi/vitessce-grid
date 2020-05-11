@@ -9,12 +9,13 @@ const commonjs = require('@rollup/plugin-commonjs');
 const html = require('@rollup/plugin-html');
 const replace = require('@rollup/plugin-replace');
 const scss = require('rollup-plugin-scss');
-// Dev server
+
+// Development server plugins.
 const serve = require('rollup-plugin-serve');
 const livereload = require('rollup-plugin-livereload');
 const { htmlFromTemplate } = require('./rollup.utils');
 
-// Constants for output files:
+// Constants for output files.
 const DEMO_DIR = 'demo';
 const DEMO_SRC_DIR = join(DEMO_DIR, 'src');
 const DEMO_DIST_DIR = join(DEMO_DIR, 'dist');

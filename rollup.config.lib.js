@@ -1,16 +1,14 @@
-import pkg from './package.json';
-import path from 'path';
-import React from 'react';
+const pkg = require('./package.json');
+const { join } = require('path');
+const React = require('react');
 
-import resolve from '@rollup/plugin-node-resolve';
-import babel from '@rollup/plugin-babel';
-import json from '@rollup/plugin-json';
-import commonjs from '@rollup/plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
+const resolve = require('@rollup/plugin-node-resolve');
+const { babel } = require('@rollup/plugin-babel');
+const json = require('@rollup/plugin-json');
+const commonjs = require('@rollup/plugin-commonjs');
+const { terser } = require('rollup-plugin-terser');
 
-const { join } = path;
-
-// Constants for output files:
+// Constants for output files.
 const SRC_DIR = 'src';
 const LIB_DIR = 'lib';
 const ES_DIR = 'es';
@@ -42,7 +40,7 @@ const outputModuleBase = {
     chunkFileNames: (isProduction ? "[name]-[hash].min.js" : "[name]-[hash].js"),
 };
 
-export default {
+module.exports = {
     input: join(SRC_DIR, INPUT_JS),
     output: [
         {
