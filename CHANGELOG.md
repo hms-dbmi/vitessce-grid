@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.0.7 - in progress
+## 0.0.8 - in progress
+### Added
+- Add a `theme` prop to pass a theme name to all grid components.
+
+## [0.0.7] - 2020-05-11
 ### Changed
 - Switched to using [Rollup](https://rollupjs.org) for bundling, to obtain more control over externalization of React and ReactDOM.
 - Use `ChromeHeadless` on Travis
