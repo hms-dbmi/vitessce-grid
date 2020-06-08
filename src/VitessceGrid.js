@@ -7,7 +7,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function VitessceGrid(props) {
   const {
     layout, getComponent, padding, margin, draggableHandle,
-    reactGridLayoutProps, onAllReady, rowHeight,
+    reactGridLayoutProps, onAllReady, rowHeight, theme,
   } = props;
   const {
     cols, layouts, breakpoints, components,
@@ -55,6 +55,7 @@ export default function VitessceGrid(props) {
       <div key={k}>
         <Component
           {... v.props}
+          theme={theme}
           removeGridComponent={removeGridComponent}
           onReady={onReady}
         />
