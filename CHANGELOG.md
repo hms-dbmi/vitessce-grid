@@ -2,7 +2,7 @@
 
 ## 0.0.9 - in progress
 ### Added
-- Add a `height` prop to alert the `WidthProvider` of an updated height value.
+- Add a `height` prop to alert the `ResponsiveGridLayout` instance about updated height values.
 
 ## [0.0.8] - 2020-06-08
 ### Added
