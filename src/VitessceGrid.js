@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { Responsive } from 'react-grid-layout';
-import WidthProvider from './WidthProvider';
+import { Responsive, WidthProvider } from 'react-grid-layout';
 import { getMaxRows, resolveLayout } from './layoutUtils';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
+
+class ResponsiveHeightGridLayout extends ResponsiveGridLayout {
+  componentDidUpdate(prevProps) {
+    if (this.props.height !== prevProps.height) {
+      this.onWindowResize();
+    }
+  }
+}
 
 export default function VitessceGrid(props) {
   const {
@@ -67,7 +74,7 @@ export default function VitessceGrid(props) {
   return (
     <React.Fragment>
       {style}
-      <ResponsiveGridLayout
+      <ResponsiveHeightGridLayout
         className="layout"
         cols={cols}
         layouts={layouts}
@@ -85,7 +92,7 @@ export default function VitessceGrid(props) {
         {... reactGridLayoutProps}
       >
         {layoutChildren}
-      </ResponsiveGridLayout>
+      </ResponsiveHeightGridLayout>
     </React.Fragment>
   );
 }
