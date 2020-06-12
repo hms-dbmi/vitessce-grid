@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.0.8 - in progress
+## 0.0.9 - in progress
+### Added
+- Add a `height` prop to alert the `WidthProvider` of an updated height value.
+
+## [0.0.8] - 2020-06-08
 ### Added
 - Add a `theme` prop to pass a theme name to all grid components.
 
