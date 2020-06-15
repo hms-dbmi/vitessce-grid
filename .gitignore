@@ -4,3 +4,4 @@ es/
 lib/
 umd/
 coverage/
+.DS_Store

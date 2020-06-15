@@ -4,10 +4,18 @@ import { getMaxRows, resolveLayout } from './layoutUtils';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+class ResponsiveHeightGridLayout extends ResponsiveGridLayout {
+  componentDidUpdate(prevProps) {
+    if (this.props.height !== prevProps.height) {
+      this.onWindowResize();
+    }
+  }
+}
+
 export default function VitessceGrid(props) {
   const {
     layout, getComponent, padding, margin, draggableHandle,
-    reactGridLayoutProps, onAllReady, rowHeight, theme,
+    reactGridLayoutProps, onAllReady, rowHeight, theme, height,
   } = props;
   const {
     cols, layouts, breakpoints, components,
@@ -66,11 +74,12 @@ export default function VitessceGrid(props) {
   return (
     <React.Fragment>
       {style}
-      <ResponsiveGridLayout
+      <ResponsiveHeightGridLayout
         className="layout"
         cols={cols}
         layouts={layouts}
         breakpoints={breakpoints}
+        height={height}
         rowHeight={
           rowHeight
           || (
@@ -83,7 +92,7 @@ export default function VitessceGrid(props) {
         {... reactGridLayoutProps}
       >
         {layoutChildren}
-      </ResponsiveGridLayout>
+      </ResponsiveHeightGridLayout>
     </React.Fragment>
   );
 }

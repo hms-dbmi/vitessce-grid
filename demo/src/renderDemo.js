@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useReducer, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 import 'react-grid-layout/css/styles.css';
@@ -54,26 +54,38 @@ function getComponent(name) {
   return registry[name];
 }
 
+function Demo() {
+  const fixedHeight = 600;
+  const [isExpanded, toggleIsExpanded] = useReducer(v => !v, false);
+  return (
+    <div style={(isExpanded ? {} : { height: `${fixedHeight}px`, width: `${fixedHeight}px` })}>
+      <button onClick={toggleIsExpanded}>Toggle Expanded Grid</button>
+      <VitessceGrid
+        layout={layout}
+        getComponent={getComponent}
+        draggableHandle={`.${handleClass}`}
+        padding={50}
+        height={isExpanded}
+        rowHeight={(isExpanded ? undefined : fixedHeight/4)} /* If undefined, will fill window height. */
+        margin={25}
+        onAllReady={() => {
+          console.warn('onAllReady!');
+        }}
+        reactGridLayoutProps={{
+          /*
+            Use this to pass through to react-grid-layout.
+            See https://github.com/STRML/react-grid-layout#grid-layout-props
+          */
+          onDragStop: () => { console.warn('Wrapped onDragStop works!'); },
+        }}
+      />
+    </div>
+  );
+}
+
 export default function renderDemo(id) {
   ReactDOM.render(
-    <VitessceGrid
-      layout={layout}
-      getComponent={getComponent}
-      draggableHandle={`.${handleClass}`}
-      padding={50}
-      rowHeight={100} /* If not provided, will fill window height. */
-      margin={25}
-      onAllReady={() => {
-        console.warn('onAllReady!');
-      }}
-      reactGridLayoutProps={{
-        /*
-          Use this to pass through to react-grid-layout.
-          See https://github.com/STRML/react-grid-layout#grid-layout-props
-        */
-        onDragStop: () => { console.warn('Wrapped onDragStop works!'); },
-      }}
-    />,
+    <Demo />,
     document.getElementById(id),
   );
 }
