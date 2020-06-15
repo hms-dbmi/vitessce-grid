@@ -56,9 +56,9 @@ function getComponent(name) {
 
 function Demo() {
   const fixedHeight = 600;
-  const [isExpanded, toggleIsExpanded] = useReducer(v => !v, true);
+  const [isExpanded, toggleIsExpanded] = useReducer(v => !v, false);
   return (
-    <div style={(isExpanded ? { height: `${fixedHeight}px`, width: `${fixedHeight}px` } : {})}>
+    <div style={(isExpanded ? {} : { height: `${fixedHeight}px`, width: `${fixedHeight}px` })}>
       <button onClick={toggleIsExpanded}>Toggle Expanded Grid</button>
       <VitessceGrid
         layout={layout}
@@ -66,7 +66,7 @@ function Demo() {
         draggableHandle={`.${handleClass}`}
         padding={50}
         height={isExpanded}
-        rowHeight={(isExpanded ? fixedHeight/4 : undefined)} /* If undefined, will fill window height. */
+        rowHeight={(isExpanded ? undefined : fixedHeight/4)} /* If undefined, will fill window height. */
         margin={25}
         onAllReady={() => {
           console.warn('onAllReady!');
