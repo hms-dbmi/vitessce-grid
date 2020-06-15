@@ -56,10 +56,7 @@ function getComponent(name) {
 
 function Demo() {
   const fixedHeight = 600;
-  const [isExpanded, setIsExpanded] = useState(true);
-  function toggleIsExpanded() {
-    setIsExpanded(prev => !prev);
-  }
+  const [isExpanded, toggleIsExpanded] = useReducer(v => !v, true);
   return (
     <div style={(isExpanded ? { height: `${fixedHeight}px`, width: `${fixedHeight}px` } : {})}>
       <button onClick={toggleIsExpanded}>Toggle Expanded Grid</button>
