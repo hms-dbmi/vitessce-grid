@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useCallback } from 'react';
+import React, { useReducer, useEffect, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import 'react-grid-layout/css/styles.css';
@@ -10,7 +10,9 @@ import VitessceGrid from '../../src';
   After installing from NPM, you'll use "from 'vitessce-grid'" instead.
 */
 
-import layout from './layout.json';
+import layoutBlue from './layoutBlue.json';
+import layoutRed from "./layoutRed.json";
+
 /*
   The layout could be represented in JSON, unless you need to provide function props.
 */
@@ -33,10 +35,26 @@ function Block(props) {
     /*
       You may want to use a stylesheet, but for a demo this is more clear.
     */
-    <div style={{ height: '100%', width: '100%', border: '2px solid black' }}>
+    <>
       <div className={handleClass}>drag-me</div>
       <div>{text}</div>
       <button type="button" onClick={() => { console.warn('removeGridComponent!'); removeGridComponent(); }}>Close</button>
+    </>
+    
+  );
+}
+function BlockBlue(props){
+  return (
+    <div style={{ height: "100%", width: "100%", border: "2px solid blue" }}>
+      <Block {...props} />
+    </div>
+  );
+}
+
+function BlockRed(props) {
+  return (
+    <div style={{ height: "100%", width: "100%", border: "2px solid red" }}>
+      <Block {...props} />
     </div>
   );
 }
@@ -50,18 +68,20 @@ function getComponent(name) {
       MyComponent: React.lazy(() => import('./BloatedOptionalComponent.js')),
     }
   */
-  const registry = { Block };
+  const registry = { BlockBlue, BlockRed };
   return registry[name];
 }
 
 function Demo() {
   const fixedHeight = 600;
   const [isExpanded, toggleIsExpanded] = useReducer(v => !v, false);
+  const [currLayout, toggleLayout] = useReducer(v => (v === layoutBlue ? layoutRed : layoutBlue), layoutBlue);
   return (
     <div style={(isExpanded ? {} : { height: `${fixedHeight}px`, width: `${fixedHeight}px` })}>
       <button onClick={toggleIsExpanded}>Toggle Expanded Grid</button>
+      <button onClick={toggleLayout}>Toggle Layout</button>
       <VitessceGrid
-        layout={layout}
+        layout={currLayout}
         getComponent={getComponent}
         draggableHandle={`.${handleClass}`}
         padding={50}

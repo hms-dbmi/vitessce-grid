@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { getMaxRows, resolveLayout } from './layoutUtils';
 
@@ -17,13 +17,27 @@ export default function VitessceGrid(props) {
     layout, getComponent, padding, margin, draggableHandle,
     reactGridLayoutProps, onAllReady, rowHeight, theme, height,
   } = props;
-  const {
-    cols, layouts, breakpoints, components,
-  } = resolveLayout(layout);
 
   // eslint-disable-next-line no-unused-vars
   const [_readyComponentKeys, setReadyComponentKeys] = useState(new Set());
-  const [gridComponents, setGridComponents] = useState(components);
+  const [gridComponents, setGridComponents] = useState({});
+  const [gridCols, setGridCols] = useState(null);
+  const [gridLayouts, setGridLayouts] = useState(null);
+  const [gridBreakpoints, setGridBreakpoints] = useState(null);
+  const [maxRows, setMaxRows] = useState(0);
+
+  // If layout changes, update grid components and clear ready components.
+  useEffect(() => {
+    const {
+      cols, layouts, breakpoints, components,
+    } = resolveLayout(layout);
+    // Hold all of these in state in the case of new layouts coming in.
+    setGridComponents(components);
+    setGridCols(cols);
+    setGridLayouts(layouts);
+    setGridBreakpoints(breakpoints);
+    setMaxRows(getMaxRows(layouts));
+  }, [layout]);
 
   // Inline CSS is generally avoided, but this saves the end-user a little work,
   // and prevents class names from getting out of sync.
@@ -70,15 +84,14 @@ export default function VitessceGrid(props) {
       </div>
     );
   });
-  const maxRows = getMaxRows(layouts);
-  return (
+  return (gridComponents && gridCols && gridLayouts && gridBreakpoints) && (
     <React.Fragment>
       {style}
       <ResponsiveHeightGridLayout
         className="layout"
-        cols={cols}
-        layouts={layouts}
-        breakpoints={breakpoints}
+        cols={gridCols}
+        layouts={gridLayouts}
+        breakpoints={gridBreakpoints}
         height={height}
         rowHeight={
           rowHeight
